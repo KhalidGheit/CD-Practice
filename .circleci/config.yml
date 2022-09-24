@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
+          name: "create-infrastructure"
           command: |
               aws cloudformation deploy \
                 --template-file template.yml \
