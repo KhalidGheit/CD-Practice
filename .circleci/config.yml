@@ -7,7 +7,7 @@ commands:
           name: Destroy environment
           when: on_fail
           command: |
-            aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7}
+            aws cloudformation delete-stack --stack-name FwdServer
 jobs:
   create_infrastructure:
 
@@ -23,6 +23,9 @@ jobs:
                 --template-file template.yml \
                 --stack-name FwdServer \
                 --region us-east-1
+      - run: return 1
+      - destroy_environment
+        when: on_fail
 
   configure_infrastructure:
     docker:
@@ -55,6 +58,6 @@ workflows:
     jobs:
       - create_infrastructure
       #- configure_infrastructure
-      - smoke_test:
-          require: create_infrastructure
+      #- smoke_test:
+      #    require: create_infrastructure
 
