@@ -5,6 +5,7 @@ commands:
     steps:
       - run:
           name: Destroy environment
+          when: on_fail
           command: |
             aws cloudformation delete-stack --stack-name FwdServer
 jobs:
@@ -24,7 +25,6 @@ jobs:
                 --region us-east-1
       - run: return 1
       - destroy_environment
-        when: on_fail
 
   configure_infrastructure:
     docker:
