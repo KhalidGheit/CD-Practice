@@ -25,6 +25,7 @@ jobs:
   get-ec2-instance-ip:
     docker:
       - image: python:3.7-alpine3.11
+    steps:
       - checkout
       - run:
           name: install curl, aws cli
