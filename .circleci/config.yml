@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Run smoke test for backend
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:logical-id,Values=EC2Instance" --query 'Reservations[*].Instances[*].DNSName' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:logical-id,Values=EC2Instance" --query 'Reservations[*].Instances[*].PublicDnsName' --output text)
             echo ${BACKEND_IP}
 
   # configure_infrastructure:
@@ -124,11 +124,8 @@ jobs:
 workflows:
   create_infrastructure-workflow:
     jobs:
-      - create_infrastructure
-      - get-ec2-instance-ip:
-          requires:
-            - create_infrastructure
-      #- configure_infrastructure
+      #- create_infrastructure
+      - get-ec2-instance-ip
       # - create_and_deploy_front_end
       # - promote_to_production:
       #     requires: 
