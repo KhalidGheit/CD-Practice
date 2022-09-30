@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Run smoke test for backend
           command: |
-            export BACKEND_ID=$(aws ec2 describe-instances --filters "Name=tag:Owner,Values=my-team" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_ID=$(aws ec2 describe-instances --filters "Name=tag:aws:cloudformation:logical-id,Values=EC2Instance" --query 'Reservations[*].Instances[*]' --output text)
             echo ${BACKEND_ID}
 
   # configure_infrastructure:
