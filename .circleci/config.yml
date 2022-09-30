@@ -34,12 +34,12 @@ jobs:
       - run:
           name: Run smoke test for backend
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --instance-ids EC2Instance  --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             echo ${BACKEND_IP}
       - run:
           name: "get-ec2-ip"
           command: |
-            aws cloudformation describe-stacks --filters "Name=logical-id,Values=EC2Instance"  --query "Stacks[0].Outputs[?OutputKey=='PublicIP'].OutputValue" --output text > ip.txt
+            aws cloudformation describe-stacks --query "Stacks[0].Outputs[?OutputKey=='PublicIP'].OutputValue" --output text > ip.txt
             cat ip.txt
 
   # configure_infrastructure:
