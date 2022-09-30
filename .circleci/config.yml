@@ -22,7 +22,7 @@ jobs:
                 --template-file template.yml \
                 --stack-name FwdServer \
                 --region us-east-1
-  get-ec2-ip:
+  get-ec2-instance-ip:
     docker:
       - image: python:3.7-alpine3.11
       - checkout
@@ -129,7 +129,7 @@ workflows:
   create_infrastructure-workflow:
     jobs:
       - create_infrastructure
-      - get-ec2-instance-id:
+      - get-ec2-instance-ip:
           requires:
             - create_infrastructure
       #- configure_infrastructure
